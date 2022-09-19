@@ -12,6 +12,7 @@ import com.vividsolutions.jts.geom.Point;
 @Repository
 public interface CityRepository extends JpaRepository<City, Long>{
 
-	@Query(value="SELECT * from us_cities where ST_DistanceSphere(geom, :p) < :distanceM", nativeQuery = true)
+	// ERROR: function distancesphere(geometry, geometry) does not exist
+	@Query(value="SELECT c from com.hin.spatial.postgis.model.City c where DistanceSphere(geom, :p) < :distanceM")
 	List<City> findNearWithinDistance(Point p, double distanceM);
 }
