@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CityService {
 
 	@Autowired
-	private CityRepository repo;
+	CityRepository repo;
 	
 	// WGS-84 SRID
 	private GeometryFactory factory = new GeometryFactory(new PrecisionModel(), 4326);
