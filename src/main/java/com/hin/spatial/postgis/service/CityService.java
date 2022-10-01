@@ -36,9 +36,7 @@ public class CityService {
 	public List<City> findAround(double lat, double lon, double distanceM){
 		log.info("Looking for city around ({},{}) withing {} meters", lat, lon, distanceM);
 		Point p = factory.createPoint(new Coordinate(lon, lat));
-		List<City> cities = repo.findNearWithinDistance(p, distanceM);
-		log.info(cities.size() + " were found");
-		return cities;
+		return repo.findNearWithinDistance(p, distanceM);
 	}
 
 	private static Geometry<?> parseWkt(String pgValue) {
