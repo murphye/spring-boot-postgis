@@ -4,7 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import com.vividsolutions.jts.geom.Point;
+import org.hibernate.annotations.Type;
+
+import org.locationtech.jts.geom.Point;
 
 import lombok.Data;
 
@@ -22,7 +24,7 @@ public class City {
 	@Column(name="`ELEV_IN_FT`")
 	private long altitude;
 	
-	@Column(columnDefinition = "geometry(Point,4326)")
+	@Column(name="`geom`", columnDefinition = "Geometry(Point,4326)")
 	private Point geom;
 
 }

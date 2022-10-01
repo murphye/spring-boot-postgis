@@ -16,15 +16,17 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     # This should no longer be needed with Hibernate 6
-    database-platform: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
+    # database-platform: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
     show-sql: true
     database: postgresql
     # PotGIS configuration
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
+    # properties:
+    #   hibernate:
+    #     temp:
+    #       use_jdbc_metadata_defaults: false
+    #     jdbc:
+    #       lob:
+    #         non_contextual_creation: true
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace

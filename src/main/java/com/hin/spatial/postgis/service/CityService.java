@@ -2,6 +2,9 @@ package com.hin.spatial.postgis.service;
 
 import java.util.List;
 
+import org.geolatte.geom.Geometry;
+import org.geolatte.geom.codec.Wkt;
+import org.geolatte.geom.codec.WktDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,10 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.hin.spatial.postgis.model.City;
 import com.hin.spatial.postgis.repo.CityRepository;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +36,13 @@ public class CityService {
 	public List<City> findAround(double lat, double lon, double distanceM){
 		log.info("Looking for city around ({},{}) withing {} meters", lat, lon, distanceM);
 		Point p = factory.createPoint(new Coordinate(lon, lat));
-		return repo.findNearWithinDistance(p, distanceM);
+		List<City> cities = repo.findNearWithinDistance(p, distanceM);
+		log.info(cities.size() + " were found");
+		return cities;
+	}
+
+	private static Geometry<?> parseWkt(String pgValue) {
+		final WktDecoder decoder = Wkt.newDecoder( Wkt.Dialect.POSTGIS_EWKT_1 );
+		return decoder.decode( pgValue );
 	}
 }
